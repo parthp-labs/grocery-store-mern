@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 
 import $ from "jquery";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,6 +32,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { userExists, userNotExists } from "./redux/reducers/userReducer.js";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import Verification from "./pages/Verification.jsx";
+import { useLazyGetWishlistItemsQuery } from "./redux/api/itemsApi.js";
 
 const Cart = lazy(() => import("./pages/Cart"));
 const LoginSignup = lazy(() => import("./pages/LoginSignup"));
@@ -67,9 +68,29 @@ const ViewOrderAdmin = lazy(() => import("./pages/admin/ViewOrder.jsx"));
 function App() {
   const dispatch = useDispatch();
 
-  const [getUser, { data, isLoading }] = useLazyGetUserQuery();
+  const [getUser, { data }] = useLazyGetUserQuery();
+  const [wishlist, setWishlist] = useState([]);
+
   const { user } = useSelector((state) => state.userReducer);
   const { loading } = useSelector((state) => state.loaderReducer);
+
+  const [getWishlistItems, { data: wishlistData }] =
+    useLazyGetWishlistItemsQuery();
+
+  const loadWishlist = async () => {
+    let wishlist = [];
+    try {
+      wishlist = JSON.parse(localStorage.getItem("wishlist"));
+
+      const result = await getWishlistItems({ items: wishlist.map((i) => i) });
+
+      if (result.data) {
+        setWishlist(result.data.wishlist);
+      }
+    } catch (error) {
+      console.error("Unable to load wishlist:", error);
+    }
+  };
 
   useEffect(() => {
     getUser();
@@ -83,17 +104,36 @@ function App() {
     }
   }, [data]);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    loadWishlist();
+  }, []);
 
   return (
     <>
       <Router>
-        <Header user={user} />
+        <Header
+          user={user}
+          wishlist={wishlist}
+          loadWishlist={loadWishlist}
+          getUser={getUser}
+        />
         <Loader isLoading={loading} darkBg={false} />
         <Suspense fallback={<Loader isLoading={true} darkBg={true} />}>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/shop" element={<Shop getUserFunc={getUser} />} />
+            <Route
+              path="/"
+              element={<Home wishlist={wishlist} loadWishlist={loadWishlist} />}
+            />
+            <Route
+              path="/shop"
+              element={
+                <Shop
+                  getUserFunc={getUser}
+                  wishlist={wishlist}
+                  loadWishlist={loadWishlist}
+                />
+              }
+            />
             <Route path="/shop/:itemId" element={<ProductDetails />} />
             <Route path="/register" element={<LoginSignup />} />
             <Route path="/contact" element={<Contact />} />

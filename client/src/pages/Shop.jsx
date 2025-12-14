@@ -60,7 +60,7 @@ function DepartmentItem({ onClickHandler, text, dataValue, isActive }) {
   );
 }
 
-function Shop({ getUserFunc }) {
+function Shop({ getUserFunc, wishlist = [], loadWishlist }) {
   const [maxPrice, setMaxPrice] = useState(10000);
   const [minPrice, setMinPrice] = useState(0);
   const [selectedSort, setSelectedSort] = useState("default");
@@ -465,6 +465,8 @@ function Shop({ getUserFunc }) {
                           name={i.name}
                           price={i.discountedPrice}
                           getUser={getUserFunc}
+                          wishlist={wishlist}
+                          loadWishlist={loadWishlist}
                         />
                       </div>
                     </div>

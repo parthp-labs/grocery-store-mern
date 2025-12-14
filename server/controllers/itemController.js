@@ -357,3 +357,19 @@ export const getCategories = asyncErrorHandler(async (req, res, next) => {
     categories: categories,
   });
 });
+
+export const getWishlistItems = asyncErrorHandler(async (req, res, next) => {
+  const { items } = req.body;
+
+  if (!items) {
+    return new CustomError("Please provide the wishlist items id", 409);
+  }
+
+  const wishlist = await Item.find({ _id: { $in: items } });
+  console.log(wishlist);
+
+  res.status(200).json({
+    success: true,
+    wishlist: wishlist,
+  });
+});

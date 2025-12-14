@@ -19,7 +19,7 @@ import banner1 from "../assets/banner/banner-1.jpg";
 import banner2 from "../assets/banner/banner-2.jpg";
 import { Link } from "react-router-dom";
 
-function Home() {
+function Home({ loadWishlist = () => {}, wishlist = [] }) {
   const [selectedFilter, setSelectedFilter] = useState();
   const [activeFilter, setActiveFilter] = useState("");
 
@@ -109,6 +109,8 @@ function Home() {
                 name={i.name}
                 price={i.discountedPrice}
                 category={i.category}
+                wishlist={wishlist}
+                loadWishlist={loadWishlist}
               />
             ))}
           </motion.div>

@@ -17,8 +17,18 @@ import useRequestHandler from "../hooks/useRequestHandler";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
-function FeatureCard({ itemId, image, name, price, category = [], getUser }) {
+function FeatureCard({
+  itemId,
+  image,
+  name,
+  price,
+  category = [],
+  getUser,
+  wishlist = [],
+  loadWishlist = () => {},
+}) {
   const [categories, setCategories] = useState("");
+  const [inWishlist, setInWishlist] = useState(false);
 
   const [addToCart] = useAddToCartMutation();
 
@@ -29,11 +39,43 @@ function FeatureCard({ itemId, image, name, price, category = [], getUser }) {
     onSuccess: getUser,
   });
 
+  const wishlistHandler = () => {
+    if (inWishlist) {
+      try {
+        const wishlist = JSON.parse(localStorage.getItem("wishlist"));
+
+        wishlist.splice(wishlist.indexOf(itemId), 1);
+        localStorage.setItem("wishlist", JSON.stringify(wishlist));
+        loadWishlist();
+        setInWishlist(false);
+        toast.success("Item removed from wishlist");
+      } catch (error) {
+        toast.error("Unable to remove from wishlist");
+      }
+    } else {
+      let newWishlist = wishlist.map((i) => i._id);
+      newWishlist.push(itemId);
+      localStorage.setItem("wishlist", JSON.stringify(newWishlist));
+      loadWishlist();
+      setInWishlist(true);
+      toast.success("Item added to wishlist");
+    }
+  };
+
   useEffect(() => {
     category.forEach((cat) => {
       setCategories(categories + `${cat} `);
     });
   }, [category]);
+
+  useEffect(() => {
+    for (let item of wishlist) {
+      if (item._id == itemId) {
+        setInWishlist(true);
+        break;
+      }
+    }
+  }, [wishlist]);
 
   return (
     <motion.div
@@ -48,13 +90,24 @@ function FeatureCard({ itemId, image, name, price, category = [], getUser }) {
           style={{ backgroundImage: `url(${image})` }}
         >
           <ul className="product__item__pic__hover">
-            <li
-              onClick={() => {
-                addToCartHandler();
-              }}
-            >
+            <li onClick={addToCartHandler}>
               <i>
                 <FontAwesomeIcon icon={faShoppingCart} />
+              </i>
+            </li>
+            <li
+              onClick={wishlistHandler}
+              style={
+                inWishlist
+                  ? {
+                      background: "#7fad39",
+                      color: "white",
+                    }
+                  : {}
+              }
+            >
+              <i>
+                <FontAwesomeIcon icon={faHeart} />
               </i>
             </li>
           </ul>

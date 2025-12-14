@@ -6,7 +6,7 @@ import { ordersApi } from "./api/ordersApi";
 import { blogsApi } from "./api/blogsApi";
 import { dashboardApi } from "./api/dashboardApi";
 import { loaderReducer } from "./reducers/loaderReducer";
-import { wishlistReducer } from "./reducers/wishlistReducer";
+
 import { messageApi } from "./api/messageApi";
 
 export const store = configureStore({
@@ -18,7 +18,6 @@ export const store = configureStore({
     [blogsApi.reducerPath]: blogsApi.reducer,
     [dashboardApi.reducerPath]: dashboardApi.reducer,
     [loaderReducer.name]: loaderReducer.reducer,
-    [wishlistReducer.name]: wishlistReducer.reducer,
     [messageApi.reducerPath]: messageApi.reducer,
   },
   middleware: (defaultMiddlewares) => [

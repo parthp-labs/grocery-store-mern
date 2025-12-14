@@ -7,20 +7,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
   faShoppingBag,
-  faEnvelope,
   faPhone,
   faBars,
-  faChevronDown,
   faUserCircle,
   faSignOut,
   faUserTie,
+  faHeart,
 } from "@fortawesome/free-solid-svg-icons";
-import {
-  faFacebook,
-  faTwitter,
-  faLinkedin,
-  faPinterestP,
-} from "@fortawesome/free-brands-svg-icons";
 
 import logo from "../assets/logo.png";
 
@@ -31,17 +24,19 @@ import useRequestHandler from "../hooks/useRequestHandler";
 import { useGetItemCategoriesQuery } from "../redux/api/itemsApi";
 import { useAnimate, motion, AnimatePresence } from "framer-motion";
 import { useSelector } from "react-redux";
+import WishlistItem from "./WishlistItem";
 
-function Header() {
+function Header({ wishlist = [], loadWishlist, getUser }) {
   const { user } = useSelector((state) => state.userReducer);
   const location = useLocation();
   const navigate = useNavigate();
 
   const [headerCartOpen, setHeaderCartOpen] = useState(false);
+  const [wishlistOpen, setWishlistOpen] = useState(false);
 
   const headerCartBtnRef = useRef();
-  // const heroCategoriesAllRef = useRef();
-  // const hameBurgerOpenRef = useRef(null);
+  const wishlistBtnRef = useRef();
+
   const hameBurgerMenuOverlayRef = useRef(null);
   const hameBurgerMenuWrapperRef = useRef(null);
 
@@ -82,11 +77,6 @@ function Header() {
     );
   };
 
-  // For opening header cart
-  const openCartHandler = (e) => {
-    setHeaderCartOpen(true);
-  };
-
   // For closing header cart on click outside
   const closeCartHandler = (e) => {
     if (!headerCartBtnRef.current?.contains(e.target)) {
@@ -94,15 +84,23 @@ function Header() {
     }
   };
 
+  const closeWishlistHandler = (e) => {
+    if (!wishlistBtnRef.current?.contains(e.target)) {
+      setWishlistOpen(false);
+    }
+  };
+
   useEffect(() => {
-    console.log(user);
-  }, [user]);
+    console.log(wishlist);
+  }, [wishlist]);
 
   useEffect(() => {
     document.addEventListener("mouseover", closeCartHandler);
+    document.addEventListener("mouseover", closeWishlistHandler);
 
     return () => {
       document.removeEventListener("mouseover", closeCartHandler);
+      document.removeEventListener("mouseover", closeWishlistHandler);
     };
   }, []);
 
@@ -132,6 +130,14 @@ function Header() {
                       <FontAwesomeIcon icon={faShoppingBag} />{" "}
                     </i>
                     <span>{user?.cart.items.length || 0}</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link>
+                    <i>
+                      <FontAwesomeIcon icon={faHeart} />{" "}
+                    </i>
+                    <span>{wishlist?.length || 0}</span>
                   </Link>
                 </li>
               </ul>
@@ -254,7 +260,54 @@ function Header() {
                 <div className="col-lg-3">
                   <div className="header__cart">
                     <ul>
-                      <li onMouseOver={openCartHandler} ref={headerCartBtnRef}>
+                      {" "}
+                      <li
+                        onMouseOver={() => setWishlistOpen(true)}
+                        ref={wishlistBtnRef}
+                      >
+                        <NavLink>
+                          <i>
+                            <FontAwesomeIcon icon={faHeart} />
+                          </i>
+                          <span>{wishlist?.length || 0}</span>
+                        </NavLink>
+                        <AnimatePresence>
+                          {wishlistOpen && (
+                            <motion.div
+                              className="header__cartItems"
+                              initial={{
+                                display: "none",
+                                height: 0,
+                              }}
+                              animate={{
+                                display: "block",
+                                height: "200px",
+                              }}
+                              exit={{ display: "none", height: 0 }}
+                              transition={{ duration: 0.2, ease: "easeIn" }}
+                            >
+                              {wishlist?.map((item) => (
+                                <WishlistItem
+                                  getUser={getUser}
+                                  key={item._id}
+                                  id={item._id}
+                                  image={item.images[0]}
+                                  name={item.name}
+                                  price={item.discountedPrice}
+                                  quantity={item.quantity}
+                                  loadWishlist={loadWishlist}
+                                />
+                              ))}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </li>
+                      <li
+                        onMouseOver={() => {
+                          setHeaderCartOpen(true);
+                        }}
+                        ref={headerCartBtnRef}
+                      >
                         <NavLink to="/cart">
                           <i>
                             <FontAwesomeIcon icon={faShoppingBag} />

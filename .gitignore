@@ -6,3 +6,5 @@ logs/
 .vscode/
 tmp/
 Learning.txt
+Bugs.txt
+server/public/invoices/

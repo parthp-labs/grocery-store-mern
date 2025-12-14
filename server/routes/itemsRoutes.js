@@ -12,6 +12,7 @@ import {
   getManyItems,
   updateItem,
   getCategories,
+  getWishlistItems,
 } from "../controllers/itemController.js";
 
 const router = Router();
@@ -20,6 +21,7 @@ router.route("/items/all").get(getManyItems);
 router.route("/items/categories/all").get(getCategories);
 router.route("/items/featured/:featured").get(getFeaturedItems);
 router.route("/items/:itemId").get(getItem);
+router.route("/items/wishlist").post(getWishlistItems);
 
 // ADMIN ONLY
 router.route("/items/new").post(authenticateUser, authorizeAdmin, createItem);

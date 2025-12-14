@@ -106,6 +106,13 @@ export const itemsApi = createApi({
         credentials: "include",
       }),
     }),
+    getWishlistItems: builder.query({
+      query: ({ items }) => ({
+        url: "/wishlist",
+        body: { items },
+        method: "POST",
+      }),
+    }),
   }),
 });
 
@@ -122,4 +129,5 @@ export const {
   useLazyGetItemsQuery,
   useLazyGetItemCategoriesQuery,
   useLazyGetItemByIdQuery,
+  useLazyGetWishlistItemsQuery,
 } = itemsApi;

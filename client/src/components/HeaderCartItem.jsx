@@ -1,6 +1,8 @@
 import React from "react";
 
 import itemImage from "../assets/product/product-1.jpg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAdd } from "@fortawesome/free-solid-svg-icons";
 
 function HeaderCartItem({ image, name, price, quantity }) {
   return (
@@ -12,6 +14,7 @@ function HeaderCartItem({ image, name, price, quantity }) {
           {quantity} for Rs.{price}
         </span>
       </div>
+      
     </div>
   );
 }
