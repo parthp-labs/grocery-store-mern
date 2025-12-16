@@ -388,6 +388,7 @@ export const newOrder = asyncErrorHandler(async (req, res, next) => {
       phone: req.user.phoneNumber,
     });
 
+    console.log(process.env.HOST, process.env.PORT);
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       payment_method_types: ["card"],

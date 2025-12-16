@@ -56,7 +56,7 @@ function Checkout({ user = {} }) {
       if (selectedPaymentMode === "card") {
         window.location = res.paymentLink;
       } else if (selectedPaymentMode === "cashOnDelivery") {
-        window.location = `${network}:5173/order/success?orderId=${res.order._id}`;
+        window.location = `/order/success?orderId=${res.order._id}`;
       }
 
       return;
