@@ -11,7 +11,7 @@ function ReviewCard() {
             src="http://xsgames.co/randomusers/avatar.php?g=male"
             className="product__review__img"
           />
-          <h6>Parth Patel</h6>
+          <h6>John Doe</h6>
         </div>
         <div className="product__review__ratings">
           <i>

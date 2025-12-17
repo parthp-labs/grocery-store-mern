@@ -234,9 +234,9 @@ function Header({ wishlist = [], loadWishlist, getUser }) {
               <div className="row">
                 <div className="col-lg-3">
                   <div className="header__logo">
-                    <a href="./index.html">
+                    <Link to="/">
                       <img src={logo} alt="" />
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className="col-lg-6">
@@ -439,7 +439,7 @@ function Header({ wishlist = [], loadWishlist, getUser }) {
                           </i>
                         </div>
                         <div className="hero__search__phone__text">
-                          <h5>+65 11.188.888</h5>
+                          <h5>+91 63********</h5>
                           <span>support 24/7 time</span>
                         </div>
                       </div>
