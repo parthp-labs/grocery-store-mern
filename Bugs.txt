@@ -1,3 +1,0 @@
-1) Error in Header component
-2) Password not hashed
-3) Confirm password and password should match
