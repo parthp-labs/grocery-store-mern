@@ -22,6 +22,7 @@ function FeatureCard({
   image,
   name,
   price,
+  discount,
   category = [],
   getUser,
   wishlist = [],
@@ -85,6 +86,7 @@ function FeatureCard({
       className={`col-lg-3 col-md-4 col-sm-6 mix ${categories}`}
     >
       <div className="product__item">
+        {discount != 0 && <span className="item__discount">-{discount}%</span>}
         <div
           className="product__item__pic set-bg"
           style={{ backgroundImage: `url(${image})` }}

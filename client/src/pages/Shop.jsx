@@ -258,7 +258,7 @@ function Shop({ getUserFunc, wishlist = [], loadWishlist }) {
                     <div className="price-range">
                       <MultiRangeSlider
                         min={0}
-                        max={10000}
+                        max={300}
                         step={5}
                         minValue={minPrice}
                         maxValue={maxPrice}
@@ -461,6 +461,7 @@ function Shop({ getUserFunc, wishlist = [], loadWishlist }) {
                       <div className="product__item">
                         <ItemCard
                           itemId={i._id}
+                          discount={i.discount}
                           image={i.images[0]}
                           name={i.name}
                           price={i.discountedPrice}

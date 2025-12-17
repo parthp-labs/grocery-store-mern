@@ -9,6 +9,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logo from "../assets/logo.png";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
@@ -24,11 +25,11 @@ function Footer() {
                     <img src={logo} alt="" />
                   </a>
                 </div>
-                <ul>
+                {/* <ul>
                   <li>Address: 60-49 Road 11378 New York</li>
                   <li>Phone: +65 11.188.888</li>
                   <li>Email: hello@ogani.com</li>
-                </ul>
+                </ul> */}
               </div>
             </div>
             <div className="col-lg-8 col-md-10 col-sm-6 offset-lg-1">
@@ -36,30 +37,21 @@ function Footer() {
                 <h6>Useful Links</h6>
                 <ul>
                   <li>
-                    <a href="#">About Our Shop</a>
+                    <Link to="/account">My Account</Link>
                   </li>
                   <li>
-                    <a href="#">Secure Shopping</a>
+                    <Link to="/orders">My Orders</Link>
                   </li>
                   <li>
-                    <a href="#">Delivery Information</a>
-                  </li>
-                  <li>
-                    <a href="#">Privacy Policy</a>
+                    <Link to="/cart">My Cart</Link>
                   </li>
                 </ul>
                 <ul>
                   <li>
-                    <a href="#">Who We Are</a>
+                    <Link to="/shop">Start Shopping</Link>
                   </li>
                   <li>
-                    <a href="#">Our Services</a>
-                  </li>
-                  <li>
-                    <a href="#">Contact</a>
-                  </li>
-                  <li>
-                    <a href="#">Testimonials</a>
+                    <Link to="/contact">Contact Us</Link>
                   </li>
                 </ul>
               </div>

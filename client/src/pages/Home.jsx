@@ -108,6 +108,7 @@ function Home({ loadWishlist = () => {}, wishlist = [] }) {
                 image={i.images[0]}
                 name={i.name}
                 price={i.discountedPrice}
+                discount={i.discount}
                 category={i.category}
                 wishlist={wishlist}
                 loadWishlist={loadWishlist}

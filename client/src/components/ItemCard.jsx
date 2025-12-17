@@ -24,6 +24,7 @@ function ItemCard({
   image,
   name,
   price,
+  discount,
   getUser,
   wishlist = [],
   loadWishlist,
@@ -80,6 +81,7 @@ function ItemCard({
 
   return (
     <div className="product__item">
+      {discount != 0 && <span className="item__discount">-{discount}%</span>}
       <div
         className="product__item__pic set-bg"
         style={{ backgroundImage: `url(${image})` }}
