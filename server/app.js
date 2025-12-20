@@ -81,15 +81,16 @@ app.use(errorHandlerMiddleware);
 
 // CONNECTING DATABASE AND RUNNING APP
 mongoose
-  .connect(process.env.MONGO_URL, { dbName: "Ogani" })
-  .then((data) => {
-    console.log(`Connected to MongoDB at: ${process.env.MONGO_URL}`);
+  .connect(process.env.MONGO_URL)
+  .then(() => {
+    console.log(`MongoDB connected to database: ${mongoose.connection.name}`);
 
-    app.listen(process.env.PORT, "0.0.0.0", () =>
+    const server = app.listen(process.env.PORT, "0.0.0.0", () => {
+      const addressInfo = server.address();
       console.log(
-        `Server is running at: http://${data.connection.host}:${process.env.PORT}`
-      )
-    );
+        `Server is running at: http://${addressInfo.address}:${addressInfo.port}`
+      );
+    });
   })
   .catch((error) => {
     console.log(
