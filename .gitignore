@@ -1,10 +1,9 @@
 node_modules/
 .env
+.env.*
 dist/
 build/
 logs/
 .vscode/
 tmp/
-Learning.txt
-Bugs.txt
 server/public/invoices/
