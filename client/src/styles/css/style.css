@@ -5460,6 +5460,26 @@ table thead th:first-child {
 /* Small Device = 320px */
 
 @media only screen and (max-width: 479px) {
+  .register__container {
+    max-width: 100vw;
+    width: 100%;
+  }
+
+  .signup__form {
+    padding: 10px 20px;
+  }
+
+  .signup__form .col {
+    padding: 5px;
+  }
+
+  .register__container .nav-link {
+    font-size: 24px !important;
+  }
+  .register__container .nav-link i {
+    font-size: 18px;
+  }
+
   .hero__search__form form .hero__search__categories {
     display: none;
   }

@@ -30,6 +30,7 @@ function LoginSignup() {
   const dispatch = useDispatch();
 
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [loginPasswordVisible, setLoginPasswordVisible] = useState(false);
   const [cpasswordVisible, setCPasswordVisible] = useState(false);
   const { user, loading } = useSelector((state) => state.userReducer);
   const navigate = useNavigate();
@@ -278,7 +279,7 @@ function LoginSignup() {
                         id="email"
                       />
                     </div>
-                    <div className="register__input">
+                    <div className="register__input password__field">
                       <p>
                         Password <span>*</span>
                       </p>
@@ -286,7 +287,17 @@ function LoginSignup() {
                         placeholder="Enter your account password"
                         name="password"
                         id="password"
+                        type={loginPasswordVisible ? "text" : "password"}
                       />
+                      <i
+                        onClick={() =>
+                          setLoginPasswordVisible(!loginPasswordVisible)
+                        }
+                      >
+                        <FontAwesomeIcon
+                          icon={!loginPasswordVisible ? faEyeSlash : faEye}
+                        />
+                      </i>
                     </div>
 
                     <button className="site-btn col">Login</button>
