@@ -99,6 +99,7 @@ export const ordersApi = createApi({
           url: `/${orderId}`,
           method: "PATCH",
           body: { status },
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
