@@ -185,6 +185,13 @@ This application includes automated email notifications to keep users informed a
 
 ---
 
+## 🙏 Credits / Acknowledgements
+
+- This project uses the **Ogani Bootstrap HTML template** originally created by [Colorlib](https://colorlib.com/wp/template/ogani/) and hosted on [ThemeWagon](https://themewagon.com/themes/free-bootstrap-4-html5-responsive-ecommerce-website-template-ogani/).  
+- The template has been **converted and customized to React** for this MERN stack project.  
+- All backend functionality, features, and logic were implemented personally.
+
+
 ## 📜 License
 
 This project is developed for **personal and educational purposes only**.
