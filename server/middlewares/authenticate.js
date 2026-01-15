@@ -3,6 +3,7 @@ import CustomError from "../utils/utilityClasses.js";
 import jwt from "jsonwebtoken";
 
 export const authenticateUser = async (req, res, next) => {
+  console.log("Cookie: ", req.cookies);
   let token;
   if (req.cookies.token) {
     token = req.cookies.token;

@@ -54,7 +54,14 @@ app.use(cookieParser());
 app.use(
   cors({
     credentials: true,
-    origin: true,
+    origin: function (origin, callback) {
+      console.log(origin);
+      console.log(process.env.DEV_ORIGIN);
+      if (!origin) return callback(null, true); // allow tools like Postman
+      if ([process.env.DEV_ORIGIN, process.env.PROD_ORIGIN].includes(origin))
+        return callback(null, true);
+      callback(new Error("Not allowed by CORS"));
+    },
     exposedHeaders: "Content-disposition",
   })
 );
