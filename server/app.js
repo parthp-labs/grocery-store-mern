@@ -79,22 +79,28 @@ app.use("/api/v1/admin", adminRoutes);
 // ERROR HANDLER MIDDLEWARE
 app.use(errorHandlerMiddleware);
 
-// CONNECTING DATABASE AND RUNNING APP
-mongoose
-  .connect(process.env.MONGO_URL)
-  .then(() => {
-    console.log(`MongoDB connected to database: ${mongoose.connection.name}`);
+app.get("/test", (req, res, next) => {
+  res.json({ status: "Server is working" }, 200);
+});
 
-    const server = app.listen(process.env.PORT, "0.0.0.0", () => {
-      const addressInfo = server.address();
-      console.log(
-        `Server is running at: http://${addressInfo.address}:${addressInfo.port}`
-      );
-    });
-  })
-  .catch((error) => {
-    console.log(
-      "Unable to connect to MongoDB and run server due to following error"
-    );
-    console.log(error.message);
-  });
+export default app;
+
+// CONNECTING DATABASE AND RUNNING APP
+// mongoose
+//   .connect(process.env.MONGO_URL)
+//   .then(() => {
+//     console.log(`MongoDB connected to database: ${mongoose.connection.name}`);
+
+//     const server = app.listen(process.env.PORT, "0.0.0.0", () => {
+//       const addressInfo = server.address();
+//       console.log(
+//         `Server is running at: http://${addressInfo.address}:${addressInfo.port}`
+//       );
+//     });
+//   })
+//   .catch((error) => {
+//     console.log(
+//       "Unable to connect to MongoDB and run server due to following error"
+//     );
+//     console.log(error.message);
+//   });
