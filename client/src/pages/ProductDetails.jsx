@@ -35,7 +35,7 @@ import { userExists } from "../redux/reducers/userReducer";
 
 function ProductDetails() {
   const params = useParams();
-  const [itemDetails, setItemDetails] = useState();
+  const [itemDetails, setItemDetails] = useState({});
   const [quantity, setQuantity] = useState(1);
 
   const { data: itemDataRes, isLoading } = useGetItemByIdQuery(params.itemId);
