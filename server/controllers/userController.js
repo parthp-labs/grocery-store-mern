@@ -138,7 +138,10 @@ export const loginUser = asyncErrorHandler(async (req, res, next) => {
   // Generating JWT and adding it to the cookie
   const jwt = await user.generateJWT();
   res.cookie("token", jwt, {
-    expires: new Date(Date.now() + 86400000),
+    expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+    sameSite: "None",
+    httpOnly: true,
+    secure: true,
   });
 
   res
